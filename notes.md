@@ -16,13 +16,13 @@
 
 * To create a `django` project, simply navigate to the target dir and enter
 
-```
+```shell
 django-admin.py startproject PROJECTNAME
 ```
 
 * After that project has been made, you can create more projects using the `manage.py` file and using it in a similar way
 
-```
+```shell
 python3 manage.py startapp SECONDPROJECT
 ```
 
@@ -78,6 +78,35 @@ python3 manage.py startapp SECONDPROJECT
 
 ## postgresql
 
-* username `msolorzano` password `the usual`
+* username `msolorzano` password `rexrexRex+3`
 * database name `electronStore`
+
+## Open a DB w/ user privileges
+
 * to start a db session `sudo -u postgres psql`
+
+### Creating a DB
+
+```shell
+CREATE DATABASE electronstore;
+```
+
+### Create a User for managing the db and to connect to w/ django
+
+```shell
+CREATE USER msolorzano WITH PASSWORD 'rexrexRex+3';
+```
+
+### Initial Postgres setup
+
+```shell
+ALTER ROLE msolorzano SET client_encoding TO 'utf8';
+ALTER ROLE msolorzano SET default_transaction_isolation TO 'read committed';
+ALTER ROLE msolorzano SET timezone TO 'UTC';
+```
+
+### Give user permissions
+
+```shell
+GRANT ALL PRIVILEGES ON DATABASE electronstore TO msolorzano;
+```

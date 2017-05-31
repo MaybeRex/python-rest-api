@@ -110,3 +110,8 @@ ALTER ROLE msolorzano SET timezone TO 'UTC';
 ```shell
 GRANT ALL PRIVILEGES ON DATABASE electronstore TO msolorzano;
 ```
+
+### To change database the command is
+
+* `\c`
+    * ex `\c electronstore`

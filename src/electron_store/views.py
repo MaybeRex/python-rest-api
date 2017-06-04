@@ -1,16 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from rest_framework import status
-
-from rest_framework.authentication import TokenAuthentication
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.authtoken.views import ObtainAuthToken
 
 from . import serializers
 from . import models
+from . import persmissions
 
 # Create your views here.
 
@@ -21,6 +17,10 @@ class UserRegisterAPIView(CreateAPIView):
 
     serializer_class = serializers.UserSerializer
     queryset = models.UserProfile.objects.all()
+
+    permission_classes = [
+        AllowAny # Or anon users can't register
+    ]
 
     def post(self, request, format=None):
         """
@@ -34,3 +34,19 @@ class UserRegisterAPIView(CreateAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserUpdateAPIView(APIView):
+
+    def patch(self, request, format=None):
+        """
+            Update user profile
+        """
+
+        return Response(status=status.HTTP_200_OK)
+
+    def delete(self, request, format=None):
+        """
+            Delete profile
+        """
+
+        return Response(status=status.HTTP_200_OK)

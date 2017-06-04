@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from . import models
 
+# User Models
+# TODO externalize this into /models dir
+
 class UserSerializer(serializers.ModelSerializer):
     """
         A serializer for users
@@ -30,3 +33,5 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+#

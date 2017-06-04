@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   sudo apt-get install -y libpq-dev postgresql postgresql-contrib
 
   sudo pip install --upgrade pip
-  sudo pip3 install django djangorestframework psycopg2
+  sudo pip3 install django djangorestframework djangorestframework-jwt psycopg2
 
   sudo pip install virtualenvwrapper
     if ! grep -q VIRTUAL_ALREADY_ADDED /home/ubuntu/.bashrc; then

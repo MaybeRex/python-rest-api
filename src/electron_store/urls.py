@@ -8,6 +8,7 @@ from django.conf.urls import include
 urlpatterns = [
     # User management
     url(r'^register/$', views.UserRegisterAPIView.as_view()),
+    url(r'^profile/(?P<username>[\w.@+-]+)/$', views.UserUpdateAPIView.as_view()),
     # url(r'^register/$', )
 
     # Auth

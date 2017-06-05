@@ -93,3 +93,17 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def ___str___(self):
         return self.email
+
+class AppEntry(models.Model):
+    """
+        Database model for storing electron app
+    """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE) # NOTE, should we? idk
+    app_name = models.CharField(max_length=15)
+    description = models.TextField() # NOTE have to validate against HTML insertions
+
+    # binary = ???? #TODO figure this out
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)

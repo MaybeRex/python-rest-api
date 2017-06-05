@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         print(validated_data)
         """
-            create and return new user
+            Create and return new user
         """
 
         user = models.UserProfile(
@@ -34,4 +34,16 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
-#
+class UpdateUserSerializer(serializers.Serializer):
+
+    email = serializers.EmailField(required=False, allow_blank=True)
+    username = serializers.CharField(required=False, allow_blank=True)
+    first_name = serializers.CharField(required=False, allow_blank=True)
+    last_name = serializers.CharField(required=False, allow_blank=True)
+
+    def update(self, instance, validated_data):
+        """
+            Update and return updated user
+        """
+        print(validated_data)
+        return instance

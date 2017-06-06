@@ -41,9 +41,26 @@ class UpdateUserSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=False, allow_blank=True)
     last_name = serializers.CharField(required=False, allow_blank=True)
 
+    old_password = serializers.CharField(required=False, allow_blank=True)
+    new_password = serializers.CharField(required=False, allow_blank=True)
+
     def update(self, instance, validated_data):
         """
             Update and return updated user
         """
-        print(validated_data)
+        # TODO move resopnse objects here since this is where we update them
+
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+
+        if instance.check_password(validated_data.get('old_password')):
+            instance.set_password(validated_data.get('new_password'))
+        else:
+            pass
+            # TODO do something here to give infomative error
+
+        instance.save()
+
         return instance

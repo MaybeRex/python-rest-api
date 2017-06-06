@@ -49,19 +49,15 @@ class UserUpdateAPIView(GenericAPIView):
         """
             Update user profile
         """
-        # instance = self.get_object()
-        # data = {
-        #     'id': request.data.id,
-        #     'username': request.data.username,
-        #     'token': str(request.auth)
-        # }
-
-        print(self.get_queryset())
-        print(self.get_object())
 
         instance = self.get_object()
-        # return Response(data)
-        return Response(status=status.HTTP_200_OK)
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.update(instance, serializer.validated_data)
+            return Response(status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, format=None):
         """

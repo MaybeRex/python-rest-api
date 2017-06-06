@@ -23,14 +23,14 @@ Vagrant.configure("2") do |config|
 
   sudo locale-gen en_US.UTF-8
 
-  sudo apt-get install -y python3-dev python-pip
+  sudo apt-get install -y python3-dev python3-pip
 
   sudo apt-get install -y libpq-dev postgresql postgresql-contrib
 
-  sudo pip install --upgrade pip
-  sudo pip3 install django djangorestframework djangorestframework-jwt psycopg2
+  pip install --upgrade pip
+  pip3 install django djangorestframework djangorestframework-jwt psycopg2
 
-  sudo pip install virtualenvwrapper
+  sudo pip3 install virtualenvwrapper
     if ! grep -q VIRTUAL_ALREADY_ADDED /home/ubuntu/.bashrc; then
       echo "# VIRTUAL_ALREADY_ADDED" >> /home/ubuntu/.bashrc
       echo "#WORKON_HOME=~/.virtualenvs" >> /home/ubuntu/.bashrc

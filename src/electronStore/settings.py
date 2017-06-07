@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'electron_store',
+    'heartbeat'
 ]
 
 REST_FRAMEWORK = {

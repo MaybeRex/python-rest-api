@@ -19,5 +19,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v0.1/', include('electron_store.urls'))
+    url(r'^api/v0.1/', include('electron_store.urls')),
+    url(r'^api/heartbeat', include('heartbeart.urls'))
 ]

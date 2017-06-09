@@ -8,7 +8,7 @@
 ## VirtualEnv
 
 *  On Ubuntu + Vagrant `16.05 LTS`
-    * to create a python virtual env `mkvirtualenv profiles_api --python=python3` with `virtualenvwrapper` installed
+    * to create a python virtual env `mkvirtualenv electronstore --python=python3` with `virtualenvwrapper` installed
     *  to exit a VirtualEnv `deactivate`
     * to re enter `workon profiles_api` or your custom name
 
@@ -115,3 +115,5 @@ GRANT ALL PRIVILEGES ON DATABASE electronstore TO msolorzano;
 
 * `\c`
     * ex `\c electronstore`
+
+### To initialize database

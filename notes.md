@@ -92,22 +92,15 @@ CREATE DATABASE electronstore;
 ```
 
 ### Create a User for managing the db and to connect to w/ django
+### Initial Postgres setup
+### Give user permissions
 
+`copy paste this into the postgres shell to setup`
 ```shell
 CREATE USER msolorzano WITH PASSWORD 'rexrexRex+3';
-```
-
-### Initial Postgres setup
-
-```shell
 ALTER ROLE msolorzano SET client_encoding TO 'utf8';
 ALTER ROLE msolorzano SET default_transaction_isolation TO 'read committed';
 ALTER ROLE msolorzano SET timezone TO 'UTC';
-```
-
-### Give user permissions
-
-```shell
 GRANT ALL PRIVILEGES ON DATABASE electronstore TO msolorzano;
 ```
 

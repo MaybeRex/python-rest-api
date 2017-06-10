@@ -2,19 +2,17 @@ from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-
 
 from . import serializers
 from . import models
-from . import permission
+from . import permissions
 
 # Create your views here.
 
 class UserRegisterAPIView(CreateAPIView):
     """
-        User register
+        User registration endpoint
     """
 
     serializer_class = serializers.UserSerializer
@@ -28,7 +26,7 @@ class UserRegisterAPIView(CreateAPIView):
         """
             Creates a user
         """
-        serializer = serializers.UserSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             user = serializer.save()
@@ -38,9 +36,12 @@ class UserRegisterAPIView(CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserUpdateAPIView(GenericAPIView):
+    """
+        User update endpoint
+    """
 
     authentication_classes = (JSONWebTokenAuthentication,)
-    persmission_classes = (permission.IsOwner,)
+    permission_classes = (permissions.IsOwner,)
     serializer_class = serializers.UpdateUserSerializer
     queryset = models.UserProfile.objects.all()
     lookup_field = 'username'
@@ -53,9 +54,12 @@ class UserUpdateAPIView(GenericAPIView):
         instance = self.get_object()
         serializer = self.get_serializer(data=request.data)
 
+        # NOTE use this to manually check permissions
+        # self.check_object_permissions(request, obj)
         if serializer.is_valid():
-            serializer.update(instance, serializer.validated_data)
-            return Response(status=status.HTTP_202_ACCEPTED)
+            updateResult = serializer.update(instance, serializer.validated_data)
+
+            return Response({'message': updateResult['message']}, status=updateResult['status'])
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

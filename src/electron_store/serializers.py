@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework import status
 from . import models
 
 # User Models
@@ -48,19 +49,23 @@ class UpdateUserSerializer(serializers.Serializer):
         """
             Update and return updated user
         """
-        # TODO move resopnse objects here since this is where we update them
 
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
 
-        if instance.check_password(validated_data.get('old_password')):
+        if validated_data.get('old_password') and validated_data.get('old_password') and instance.check_password(validated_data.get('old_password')):
             instance.set_password(validated_data.get('new_password'))
-        else:
-            pass
-            # TODO do something here to give infomative error
+
+        elif validated_data.get('old_password') and validated_data.get('old_password'):
+            return {
+                'status': status.HTTP_400_BAD_REQUEST,
+                'message': 'Passwords do not match'
+            }
 
         instance.save()
-
-        return instance
+        return {
+            'message': 'updated',
+            'status': status.HTTP_202_ACCEPTED
+        }

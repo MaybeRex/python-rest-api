@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,6 +76,7 @@ CORS_ORIGIN_WHITELIST = (
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':
     'electron_store.views.jwt_response_payload_handler',
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=30)
 }
 
 ROOT_URLCONF = 'electronStore.urls'

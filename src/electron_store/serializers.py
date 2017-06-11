@@ -44,6 +44,7 @@ class UpdateUserSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=False, allow_blank=True)
     new_password = serializers.CharField(required=False, allow_blank=True)
+    password = serializers.CharField(required=False, allow_blank=True)
 
     def update(self, instance, validated_data):
         """
@@ -65,7 +66,15 @@ class UpdateUserSerializer(serializers.Serializer):
             }
 
         instance.save()
+
         return {
             'message': 'updated',
             'status': status.HTTP_202_ACCEPTED
         }
+
+    def delete(self, instance, validated_data):
+        if not instance.check_password(validated_data.get('password')):
+            return {'message':'Incorrect Pasword' , 'status':status.HTTP_400_BAD_REQUEST}
+
+        instance.delete()
+        return {'message':'Deleted' , 'status':status.HTTP_202_ACCEPTED}

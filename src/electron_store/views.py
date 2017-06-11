@@ -58,17 +58,32 @@ class UserUpdateAPIView(GenericAPIView):
         # self.check_object_permissions(request, obj)
         if serializer.is_valid():
             updateResult = serializer.update(instance, serializer.validated_data)
+            return Response({'detail': updateResult['message']}, status=updateResult['status'])
 
-            return Response({'message': updateResult['message']}, status=updateResult['status'])
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, format=None):
+    def delete(self, request, username, format=None):
         """
             Delete profile
         """
+        if (    # NOTE check that all these fields are passed in
+                not request.data.get('first_name') or
+                not request.data.get('last_name') or
+                not request.data.get('username') or
+                not request.data.get('email') or
+                not request.data.get('password')
+            ):
+            return Response({'detail': 'Missing Parameters'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_200_OK)
+        instance = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            deleteResult = serializer.delete(instance, serializer.validated_data)
+            return Response({'detail': deleteResult['message']}, status=deleteResult['status'])
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 def jwt_response_payload_handler(token, user=None, request=None):
     return {

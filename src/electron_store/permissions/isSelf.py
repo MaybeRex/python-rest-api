@@ -3,14 +3,16 @@ from django.conf import settings
 
 import jwt
 
-# Custom persmissions go here
-
-class IsOwner(permissions.BasePermission):
+class IsSelf(permissions.BasePermission):
+    """
+        Checks if models is self
+    """
 
     def has_object_permission(self, request, view, obj):
         """
-            Only let Owner perform write operations on themselves
+            Only lets self through
         """
+
         token = request.META['HTTP_AUTHORIZATION'].split(' ')[1]
         decodedToken = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
 

@@ -97,11 +97,12 @@ CREATE DATABASE electronstore;
 
 `copy paste this into the postgres shell to setup`
 ```shell
-CREATE USER msolorzano WITH PASSWORD 'rexrexRex+3';
-ALTER ROLE msolorzano SET client_encoding TO 'utf8';
-ALTER ROLE msolorzano SET default_transaction_isolation TO 'read committed';
-ALTER ROLE msolorzano SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE electronstore TO msolorzano;
+CREATE DATABASE electronstore;
+CREATE USER electronstoreadmin WITH PASSWORD 'maw5dZe+KwZ4cQGg';
+ALTER ROLE electronstoreadmin SET client_encoding TO 'utf8';
+ALTER ROLE electronstoreadmin SET default_transaction_isolation TO 'read committed';
+ALTER ROLE electronstoreadmin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE electronstore TO electronstoreadmin;
 ```
 
 ### To change database the command is

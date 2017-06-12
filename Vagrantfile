@@ -27,12 +27,12 @@ Vagrant.configure("2") do |config|
 
   sudo apt-get install -y libpq-dev postgresql postgresql-contrib
 
-  sudo pip3 install --upgrade pip
+  pip3 install --upgrade pip
 
-  sudo pip3 install virtualenvwrapper
+  pip install virtualenvwrapper
 
     if ! grep -q VIRTUAL_ALREADY_ADDED /home/ubuntu/.bashrc; then
-      echo "# VIRTUAL_ALREADY_ADDED" >> /home/ubuntu/.bashrc
+      echo "#VIRTUAL_ALREADY_ADDED" >> /home/ubuntu/.bashrc
       echo "#WORKON_HOME=~/.virtualenvs" >> /home/ubuntu/.bashrc
       echo "PROJECT_HOME=/vagrant" >> /home/ubuntu/.bashrc
       echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/ubuntu/.bashrc
@@ -44,4 +44,5 @@ Vagrant.configure("2") do |config|
   # pip3 install appdirs django django-cors-headers djangorestframework djangorestframework-jwt packaging psycopg2 PyJWT pyparsing pytz six
 
   SHELL
+
 end

@@ -107,8 +107,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'electronstore',
-        'USER': 'msolorzano',
-        'PASSWORD': 'rexrexRex+3',
+        'USER': 'electronstoreadmin',
+        'PASSWORD': 'maw5dZe+KwZ4cQGg',
         'HOST': 'localhost',
         'PORT': '',
     }

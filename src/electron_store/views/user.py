@@ -4,9 +4,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from . import serializers
-from . import models
-from . import permissions
+from ..serializers import user as userSerializers
+from ..models import user as userModels
+from ..permissions.isSelf import IsSelf
 
 # Create your views here.
 
@@ -15,8 +15,8 @@ class UserRegisterAPIView(CreateAPIView):
         User registration endpoint
     """
 
-    serializer_class = serializers.UserSerializer
-    queryset = models.UserProfile.objects.all()
+    serializer_class = userSerializers.UserSerializer
+    queryset = userModels.UserProfile.objects.all()
 
     permission_classes = [
         AllowAny # Or anon users can't register
@@ -41,9 +41,9 @@ class UserUpdateAPIView(GenericAPIView):
     """
 
     authentication_classes = (JSONWebTokenAuthentication,)
-    permission_classes = (permissions.IsOwner,)
-    serializer_class = serializers.UpdateUserSerializer
-    queryset = models.UserProfile.objects.all()
+    permission_classes = (IsSelf,)
+    serializer_class = userSerializers.UpdateUserSerializer
+    queryset = userModels.UserProfile.objects.all()
     lookup_field = 'username'
 
     def patch(self, request, username,format=None):
@@ -84,9 +84,3 @@ class UserUpdateAPIView(GenericAPIView):
             return Response({'detail': deleteResult['message']}, status=deleteResult['status'])
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-def jwt_response_payload_handler(token, user=None, request=None):
-    return {
-        'token': token,
-        'status': status.HTTP_200_OK
-    }

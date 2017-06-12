@@ -1,9 +1,6 @@
 from rest_framework import serializers
 from rest_framework import status
-from . import models
-
-# User Models
-# TODO externalize this into /models dir
+from ..models import user as userModels
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -11,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = models.UserProfile
+        model = userModels.UserProfile
         fields = ('email', 'username', 'first_name', 'last_name', 'password')
         extra_kwargs = {'password': {
             'write_only': True
@@ -23,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
             Create and return new user
         """
 
-        user = models.UserProfile(
+        user = userModels.UserProfile(
             email = validated_data['email'],
             username = validated_data['username'],
             first_name = validated_data['first_name'],

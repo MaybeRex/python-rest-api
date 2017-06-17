@@ -41,10 +41,11 @@ class UserUpdateAPIView(GenericAPIView):
     """
 
     authentication_classes = (JSONWebTokenAuthentication,)
+    lookup_field = 'username'
+
     permission_classes = (IsSelf,)
     serializer_class = userSerializers.UpdateUserSerializer
     queryset = userModels.UserProfile.objects.all()
-    lookup_field = 'username'
 
     def patch(self, request, username,format=None):
         """

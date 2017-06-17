@@ -74,8 +74,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'electron_store.views.jwt_response_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'electron_store.views.jwt_response_payload_handler',
     'JWT_EXPIRATION_DELTA': timedelta(minutes=30)
 }
 

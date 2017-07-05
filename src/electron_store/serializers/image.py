@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .. import image as imageModel
+from ..models import image as imageModel
 
 class ImageSerializer(serializers.ModelSerializer):
     """
@@ -8,8 +8,9 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = imageModel.Image
-        fields = ('user_profile', 'created_on', 'updated_on', '')
-        extra_kwargs = {'user_profile', {
+        fields = ('user_profile', 'created_on', 'updated_on', 'file_path')
+
+        extra_kwargs = {'user_profile': {
             'read_only': True
         }}
 
@@ -17,5 +18,11 @@ class ImageSerializer(serializers.ModelSerializer):
         """
             Save image and return instance
         """
+        # TODO add user_profile_id
+        image = imageModel.Image(
+            file_path = validated_data['file_path'],
+            user_profile_id = 3
+        )
+        image.save()
 
-        print(validated_data)
+        return image

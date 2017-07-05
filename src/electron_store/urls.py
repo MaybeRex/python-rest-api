@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^profile/(?P<username>[\w.@+-]+)/$', userViews.UserUpdateAPIView.as_view()),
 
     # Images
-    url(r'^images/$', imageViews.UserImageUploadAPIView.as_view()),
+    url(r'^profile/(?P<username>[\w.@+-]+)/images/$', imageViews.UserImageUploadAPIView.as_view()),
 
     # Auth
     url(r'^login/$', obtain_jwt_token, name='login'),

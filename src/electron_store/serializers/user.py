@@ -15,7 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
         }}
 
     def create(self, validated_data):
-        print(validated_data)
         """
             Create and return new user
         """

@@ -12,7 +12,7 @@ class IsSelf(permissions.BasePermission):
         """
             Only lets self through
         """
-
+        print('ayyy')
         token = request.META['HTTP_AUTHORIZATION'].split(' ')[1]
         decodedToken = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
 
